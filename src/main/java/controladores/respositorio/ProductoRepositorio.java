@@ -5,6 +5,8 @@ import modelo.Producto;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductoRepositorio implements repositorio<Producto> {
 
@@ -99,4 +101,30 @@ public class ProductoRepositorio implements repositorio<Producto> {
 
 
     }
+    public List<Producto> listar() {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM productos";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setId(rs.getInt("id"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setCantidad(rs.getInt("cantidad"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setMinimoStock(rs.getInt("minimo_stock"));
+                productos.add(producto);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar los productos");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pida soporte técnico...");
+        }
+
+        return productos;
+    }
+
 }

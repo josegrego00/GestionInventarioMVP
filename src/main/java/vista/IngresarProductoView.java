@@ -13,6 +13,7 @@ public class IngresarProductoView extends JFrame {
     private JTextField nombre, cantidad, precio, minimoStock;
     private JButton crearProductoBoton, cancelarBoton;
     private ControladorIngresarProducto controladorIngresarProducto;
+
     public IngresarProductoView() {
         JPanel panelFrane = new JPanel(new BorderLayout());
         this.setTitle("Producto");
@@ -54,6 +55,10 @@ public class IngresarProductoView extends JFrame {
         panelBotones.add(crearProductoBoton);
         panelBotones.add(cancelarBoton);
         return panelBotones;
+    }
+
+    public JButton getCrearProductoBoton() {
+        return crearProductoBoton;
     }
 
     public void setConrolador(ControladorIngresarProducto controladorIngresarProducto){
