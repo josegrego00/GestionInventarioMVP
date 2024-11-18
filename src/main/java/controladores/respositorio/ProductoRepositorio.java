@@ -126,5 +126,24 @@ public class ProductoRepositorio implements repositorio<Producto> {
 
         return productos;
     }
+    public void ingresarCompra(Producto producto){
+        String sql = "UPDATE productos SET cantidad=?,precio=? WHERE nombre=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, producto.getCantidad());
+            stmt.setDouble(2, producto.getPrecio());
+            stmt.setString(3, producto.getNombre());
+            int i = stmt.executeUpdate();
+            if (i > 0) {
+                JOptionPane.showMessageDialog(null, "Se Agrego la Compra del "+producto.getNombre());
+            }
+            if (i == 0) {
+                JOptionPane.showMessageDialog(null, "No se encontro producto, No se cambio ningun dato");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

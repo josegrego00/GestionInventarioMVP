@@ -4,13 +4,15 @@ import controladores.ControladorIngresarProducto;
 import controladores.respositorio.ProductoRepositorio;
 import modelo.Producto;
 import vista.BucarProductoView;
+import vista.CompraProductoView;
 import vista.IngresarProductoView;
 
 public class Main {
     public static void main(String[] args) {
-        IngresarProductoView view= new IngresarProductoView();
-        ProductoRepositorio controlRepos= new ProductoRepositorio();
-        ControladorIngresarProducto controladorIngresarProducto= new ControladorIngresarProducto(view, controlRepos);
-
+        CompraProductoView view= new CompraProductoView();
+       /* IngresarProductoView view1= new IngresarProductoView();
+        ProductoRepositorio productoRepositorio= new ProductoRepositorio();
+        ControladorIngresarProducto controladorIngresarProducto= new ControladorIngresarProducto(view1, productoRepositorio);
+*/
     }
     }

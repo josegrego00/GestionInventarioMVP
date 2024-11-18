@@ -1,18 +1,21 @@
 package vista;
 
+import controladores.respositorio.ProductoRepositorio;
 import modelo.Producto;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
 public class BucarProductoView extends JFrame {
 
-    private JComboBox nombrePorductos;
+    private JComboBox<Producto> nombrePorductos;
     private JTextField nombre, cantidad, precio, minimoStock;
     private JButton buscarBoton, modificarBoton, eliminarBoton, cancelarBoton;
-
+    private ProductoRepositorio productoRepositorio;
 
     public BucarProductoView() {
+        productoRepositorio= new ProductoRepositorio();
         JPanel panelFrane = new JPanel(new BorderLayout());
         this.setTitle("Buscar, Modificar, Eliminar Producto");
         this.setSize(380, 200);
@@ -27,7 +30,7 @@ public class BucarProductoView extends JFrame {
         // Agregar etiquetas y campos de texto
         JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
 
-        this.nombrePorductos = new JComboBox();
+        this.nombrePorductos = new JComboBox<Producto>(new Vector<Producto>(productoRepositorio.listar()));
         panel.add(new JLabel("Productos:"));
         panel.add(nombrePorductos);
 
@@ -68,10 +71,4 @@ public class BucarProductoView extends JFrame {
         return panelBotones;
     }
 
-    public void cargarProductos(List<Producto> productos) {
-        nombrePorductos.removeAllItems();
-        for (Producto producto : productos) {
-            nombrePorductos.addItem(producto.getNombre());
-        }
-    }
 }
