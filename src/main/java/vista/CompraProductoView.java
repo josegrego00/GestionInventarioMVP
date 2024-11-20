@@ -54,14 +54,17 @@ public class CompraProductoView extends JFrame {
 
         panel.add(precio);
 
+        //=============== Cargo los datos de los productos que teng en el sistema
+        //=============================================================================
+
         nombrePorductos.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 Producto productoSeleccionado = (Producto) nombrePorductos.getSelectedItem();
                 if (productoSeleccionado != null) {
                     // Actualizar los JTextFields con los datos del producto seleccionado
                     nombre.setText(productoSeleccionado.getNombre());
-                    cantidad.setText(String.valueOf(productoSeleccionado.getCantidad()));
-                    precio.setText(String.valueOf(productoSeleccionado.getPrecio()));
+                    cantidad.setText("");
+                    precio.setText("");
 
                 }
             }
@@ -82,32 +85,19 @@ public class CompraProductoView extends JFrame {
         return comprarboton;
     }
 
-
-    // este controlador no sirve para nada
-    // iguaal lo dejo ya que tengo q colocar el controlador paara el boton.
-
-    public void controladorComboBox(ControladorIngresarProducto controladorIngresarProducto) {
-        this.controladorIngresarProducto = controladorIngresarProducto;
-        nombrePorductos.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
+        public void controladorBotonComprar(ControladorIngresarProducto controladorIngresarProducto) {
+            this.controladorIngresarProducto = controladorIngresarProducto;
+            comprarboton.addActionListener(e -> {
                 Producto productoSeleccionado = (Producto) nombrePorductos.getSelectedItem();
-                System.out.println("===============00");
-                if (productoSeleccionado != null) {
-                    System.out.println("Producto seleccionado: " + productoSeleccionado.getNombre());
-                    System.out.println("Cantidad: " + productoSeleccionado.getCantidad());
-                    System.out.println("Precio: " + productoSeleccionado.getPrecio());
-
-                    nombre.setText(productoSeleccionado.getNombre());
-                    cantidad.setText(String.valueOf(productoSeleccionado.getCantidad()));
-                    precio.setText(String.valueOf(productoSeleccionado.getPrecio()));
-
-                   }else {
-                    System.out.println("No se seleccionó ningún producto.");
-                }
-
-            }
-
-        });
+                int cantidadAnterior=productoSeleccionado.getCantidad();
+                productoSeleccionado.setCantidad((Integer.parseInt(cantidad.getText())+cantidadAnterior));
+                productoSeleccionado.setPrecio(Integer.parseInt(precio.getText()));
+                controladorIngresarProducto.cargarCompra(productoSeleccionado);
+                nombre.setText("");
+                cantidad.setText("");
+                precio.setText("");
+                productoSeleccionado=null;
+            });
     }
 
 }

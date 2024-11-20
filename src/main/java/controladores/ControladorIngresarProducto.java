@@ -20,10 +20,11 @@ public class ControladorIngresarProducto {
         productoView.setConrolador(this);
     }
 
-    public ControladorIngresarProducto(ProductoRepositorio productoRepositorio, CompraProductoView compraProductoView) {
+    public ControladorIngresarProducto(CompraProductoView compraProductoView, ProductoRepositorio productoRepositorio) {
         this.productoRepositorio = productoRepositorio;
         this.compraProductoView = compraProductoView;
-        compraProductoView.controladorComboBox(this);
+        compraProductoView.controladorBotonComprar(this);
+
     }
 
     public void crearProducto(Producto producto) {
