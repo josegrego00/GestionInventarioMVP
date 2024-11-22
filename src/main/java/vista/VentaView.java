@@ -14,7 +14,7 @@ import java.util.Vector;
 public class VentaView extends JFrame {
 
     private JComboBox<Producto> nombreProductos;
-    private JTextField nombre, cantidadVenta, precio, precioT;
+    private JTextField nombre, cantidadVenta, cantidadDisponible, precio, precioT;
     private JButton venderBoton, cancelarBoton;
     private ProductoRepositorio productoRepositorio;
     private ControladorIngresarProducto controladorIngresarProducto;
@@ -33,7 +33,7 @@ public class VentaView extends JFrame {
 
     public JPanel panelPrincipalFormulario() {
         // Agregar etiquetas y campos de texto
-        JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(6, 2, 5, 5));
 
         this.nombreProductos = new JComboBox<Producto>(new Vector<Producto>(productoRepositorio.listar()));
 
@@ -49,6 +49,11 @@ public class VentaView extends JFrame {
         panel.add(new JLabel("Cantidad a vender:"));
         this.cantidadVenta = new JTextField();
         panel.add(cantidadVenta);
+
+        panel.add(new JLabel("Cantidad Disponible:"));
+        this.cantidadDisponible = new JTextField();
+        this.cantidadDisponible.setEditable(false);
+        panel.add(cantidadDisponible);
 
         panel.add(new JLabel("Precio unitario:"));
         this.precio = new JTextField();
@@ -70,7 +75,7 @@ public class VentaView extends JFrame {
                     // Actualizar los JTextFields con los datos del producto seleccionado
                     nombre.setText(productoSeleccionado.getNombre());
                     precio.setText(String.valueOf(productoSeleccionado.getPrecio()));
-
+                    cantidadDisponible.setText((String.valueOf(productoSeleccionado.getCantidad())));
                     // Verificar si la cantidad ingresada es un número válido
                     String cantidadStr = cantidadVenta.getText();
                     try {
@@ -116,4 +121,24 @@ public class VentaView extends JFrame {
     public JButton getVenderBoton() {
         return venderBoton;
     }
+
+    public void controladorBotonVender(ControladorIngresarProducto controladorIngresarProducto) {
+        this.controladorIngresarProducto = controladorIngresarProducto;
+        venderBoton.addActionListener(e -> {
+            Producto productoSeleccionado = (Producto) nombreProductos.getSelectedItem();
+            int cantidadAnterior= productoSeleccionado.getCantidad();
+            productoSeleccionado.setCantidad(cantidadAnterior-(Integer.parseInt(cantidadVenta.getText())));
+            productoSeleccionado.setPrecio(Double.parseDouble(precio.getText()));
+            double precioVenta=Double.parseDouble(precioT.getText());
+            controladorIngresarProducto.ventaproducto(productoSeleccionado, precioVenta);
+            nombre.setText("");
+            cantidadVenta.setText("");
+            cantidadDisponible.setText("");
+            precio.setText("");
+            precioT.setText("");
+            productoSeleccionado=null;
+        });
+
+    }
+
 }
