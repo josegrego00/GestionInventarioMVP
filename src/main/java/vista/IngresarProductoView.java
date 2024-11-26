@@ -50,7 +50,7 @@ public class IngresarProductoView extends JFrame {
 
     public JPanel panelBotones() {
         JPanel panelBotones = new JPanel(new FlowLayout());
-        this.crearProductoBoton = new JButton("Guardar Producto");
+        this.crearProductoBoton = new JButton("Crear Producto");
         this.cancelarBoton= new JButton("Salir.");
         panelBotones.add(crearProductoBoton);
         panelBotones.add(cancelarBoton);
@@ -72,7 +72,12 @@ public class IngresarProductoView extends JFrame {
                 producto.setPrecio(Double.parseDouble(precio.getText()));
                 producto.setMinimoStock(Integer.parseInt(minimoStock.getText()));
                 controladorIngresarProducto.crearProducto(producto);
+            nombre.setText("");
+            cantidad.setText("");
+            precio.setText("");
+            minimoStock.setText("");
             }
+
         });
     }
 

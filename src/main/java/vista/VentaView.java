@@ -126,17 +126,16 @@ public class VentaView extends JFrame {
         this.controladorIngresarProducto = controladorIngresarProducto;
         venderBoton.addActionListener(e -> {
             Producto productoSeleccionado = (Producto) nombreProductos.getSelectedItem();
-            int cantidadAnterior= productoSeleccionado.getCantidad();
-            productoSeleccionado.setCantidad(cantidadAnterior-(Integer.parseInt(cantidadVenta.getText())));
+            int cantidadAnterior = productoSeleccionado.getCantidad();
+            productoSeleccionado.setCantidad(cantidadAnterior - (Integer.parseInt(cantidadVenta.getText())));
             productoSeleccionado.setPrecio(Double.parseDouble(precio.getText()));
-            double precioVenta=Double.parseDouble(precioT.getText());
-            controladorIngresarProducto.ventaproducto(productoSeleccionado, precioVenta);
+            controladorIngresarProducto.ventaproducto(productoSeleccionado);
             nombre.setText("");
             cantidadVenta.setText("");
             cantidadDisponible.setText("");
             precio.setText("");
             precioT.setText("");
-            productoSeleccionado=null;
+            productoSeleccionado = null;
         });
 
     }

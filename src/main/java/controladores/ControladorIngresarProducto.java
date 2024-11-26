@@ -2,7 +2,7 @@ package controladores;
 
 import controladores.respositorio.ProductoRepositorio;
 import modelo.Producto;
-import vista.BucarProductoView;
+
 import vista.CompraProductoView;
 import vista.IngresarProductoView;
 import vista.VentaView;
@@ -40,10 +40,10 @@ public class ControladorIngresarProducto {
 
 
     public void cargarCompra(Producto producto) {
-        productoRepositorio.ingresarCompra(producto);
+        productoRepositorio.update(producto);
     }
-    public void ventaproducto(Producto producto, double ventaTotal) {
-        productoRepositorio.venderProducto(producto, ventaTotal);
+    public void ventaproducto(Producto producto) {
+        productoRepositorio.update(producto);
     }
 
 

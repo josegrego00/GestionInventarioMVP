@@ -7,14 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class BucarProductoView extends JFrame {
+public class ReportesVentasYComprasView extends JFrame {
 
     private JComboBox<Producto> nombrePorductos;
     private JTextField nombre, cantidad, precio, minimoStock;
     private JButton buscarBoton, modificarBoton, eliminarBoton, cancelarBoton;
     private ProductoRepositorio productoRepositorio;
 
-    public BucarProductoView() {
+    public ReportesVentasYComprasView() {
         productoRepositorio= new ProductoRepositorio();
         JPanel panelFrane = new JPanel(new BorderLayout());
         this.setTitle("Buscar, Modificar, Eliminar Producto");
