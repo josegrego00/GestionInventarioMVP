@@ -3,8 +3,10 @@ package controladores;
 import controladores.respositorio.ProductoRepositorio;
 import modelo.Producto;
 
+import modelo.ProductosCompras;
 import vista.CompraProductoView;
 import vista.IngresarProductoView;
+import vista.ReportesVentasYComprasView;
 import vista.VentaView;
 
 import java.util.List;
@@ -14,7 +16,15 @@ public class ControladorIngresarProducto {
     private ProductoRepositorio productoRepositorio;
     private CompraProductoView compraProductoView;
     private VentaView ventaView;
+    private ReportesVentasYComprasView reportesVentasYComprasView;
+    private ProductosCompras productosCompras;
 
+    public ControladorIngresarProducto(ReportesVentasYComprasView reportesVentasYComprasView, ProductosCompras productosCompras) {
+        this.reportesVentasYComprasView = reportesVentasYComprasView;
+        this.productosCompras = productosCompras;
+        this.reportesVentasYComprasView.controladorBotonPDF(this);
+        this.reportesVentasYComprasView.controladorBotonExcel(this);
+    }
 
     public ControladorIngresarProducto(VentaView ventaView, ProductoRepositorio productoRepositorio) {
         this.ventaView = ventaView;

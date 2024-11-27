@@ -1,30 +1,26 @@
 package pruebas;
 
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
-import java.io.IOException;
-import java.lang.foreign.PaddingLayout;
 
 public class main {
     public static void main(String[] args) {
-        try (PDDocument document = new PDDocument()) {
-            PDPage page=new PDPage(PDRectangle.A6);
-            document.addPage(page);
-            PDPageContentStream stream= new PDPageContentStream(document, page);
-            stream.beginText();
-            stream.setFont(PDType1Font.H, 12);
-            stream.newLineAtOffset( 20, page.getMediaBox().getHeight() - 52);
-            document.save("/home/josepino/doc.pdf");
-        } catch (IOException e) {
+        String destino = "/home/josepino/ejemplo.pdf";
+        try (PdfWriter ePDF = new PdfWriter(destino);
+             PdfDocument pdf = new PdfDocument(ePDF);
+             Document document = new Document(pdf);) {
+            document.add(new Paragraph("Este es el Texto que estara en el PDF")
+                    .setFontSize(20)
+                    .setFontColor(new DeviceRgb(100, 50, 20)));
+            System.out.println("PDF creado...");
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
