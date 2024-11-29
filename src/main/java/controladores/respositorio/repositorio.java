@@ -7,4 +7,5 @@ public interface repositorio <T>{
     void delete(T t);
     T read(int i);
     void update(T t);
+    List<T> listar();
 }
